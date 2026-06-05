@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CENTRAL PARK RESIDENCE - Laranjeiras do Sul</title>
+    
+    <!-- Google Fonts: Playfair Display, Montserrat, Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <!-- Material Symbols Outlined -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar" id="main-navbar">
+            <div class="container nav-container">
+                <div class="logo">CENTRAL PARK RESIDENCE</div>
+                <div class="nav-links">
+                    <a href="#conceito" class="nav-link-underline">O Conceito</a>
+                    <a href="#especificacoes" class="nav-link-underline">Especificações</a>
+                    <a href="#lazer" class="nav-link-underline">Lazer</a>
+                    <a href="#contato" class="nav-link-underline">Contato</a>
+                </div>
+                <button class="mobile-menu-toggle" id="menu-open-btn" aria-label="Abrir Menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar Drawer -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+    <div class="mobile-nav-menu" id="mobile-menu">
+        <button class="close-btn" id="menu-close-btn" aria-label="Fechar Menu">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="mobile-nav-links">
+            <a href="#conceito" class="mobile-nav-link">O Conceito</a>
+            <a href="#especificacoes" class="mobile-nav-link">Especificações</a>
+            <a href="#lazer" class="mobile-nav-link">Lazer</a>
+            <a href="#contato" class="mobile-nav-link">Contato</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLsdaWg5uM2yHd31YjRBPEtEURKVQBksWECgPt61FgWBVXfiodnprA18hfBa4Ngt-7875IbOrX2O678eslh7pt4Dra_tT3XV_BV40z3ALuZnNUu-u9ThOjZ5bXrCdy2Hql7zle6r2d-JssRBFauV1UMs1zrCoIDw73T5WpxAWUPxh-PG7Iktrn5q7AnWEqEtrY2ZzyO4B4Bn6La_7g46KrBOB_NmdICkuGjIIFzG9REKCOAh9GL1DHejY9rT');" data-parallax-speed="0.5">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1 class="hero-entrance display-lg hero-title">CENTRAL PARK RESIDENCE</h1>
+                <p class="hero-entrance-delayed body-lg hero-subtitle">O extraordinário tem um novo endereço. Viva no ponto mais nobre de Laranjeiras do Sul.</p>
+                <div class="hero-entrance hero-scroll-indicator"></div>
+            </div>
+        </section>
+
+        <!-- Section 2: O Conceito -->
+        <section class="section-conceito" id="conceito">
+            <div class="container grid-two-columns">
+                <div class="conceito-info reveal-item">
+                    <h2 class="headline-lg conceito-title">Onde a arquitetura encontra o seu ideal.</h2>
+                    <div class="divider-line"></div>
+                    <p class="body-lg">Em frente à icônica Praça José Nogueira do Amaral, ergue-se um marco arquitetônico. Um projeto desenhado para quem escolheu viver além do óbvio, onde cada pavimento descortina um novo horizonte de sofisticação.</p>
+                </div>
+                <div class="conceito-image-wrapper reveal-item">
+                    <div class="float-anim">
+                        <div class="conceito-image-frame"></div>
+                        <img class="conceito-img" src="https://lh3.googleusercontent.com/aida/AP1WRLtwxIihxiVZC-_83YQjqxEiVGu0L3POX6Dsx1z6SgY-F62-9hMlH5fuiHidVk9Tw2qyHuC6KXqX86pJ-zQnsz8FlXtcJNEQ4jj5_UH_EW5EgjrLCqjBoD53Bg-1ObdlNReQxWWCJTGgkPptLlqNmF7hq3SgNQKJxa5XNFR6Oq5MJ-YYpZCWFzR8lx9LKbe_Ht_9dOT7I5wXeVypbPXxF2xlA1LrTN708PibXxB4ySXr0SFsaZYsLyh_jks" alt="Interior residencial moderno minimalista e luxuoso">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Especificações -->
+        <section class="section-spec" id="especificacoes">
+            <div class="ambient-light"></div>
+            <div class="container">
+                <div class="section-header reveal-item">
+                    <h2 class="headline-lg text-primary">Especificações</h2>
+                    <p class="label-sm sub-header">A excelência em cada metro quadrado</p>
+                </div>
+                <div class="grid-cards">
+                    <!-- Card 1 -->
+                    <div class="spec-card reveal-item" style="transition-delay: 0ms;">
+                        <span class="material-symbols-outlined spec-icon">straighten</span>
+                        <div class="spec-details">
+                            <h3 class="title-md spec-card-title">107,31m² a 168,89m²</h3>
+                            <p class="body-md spec-card-desc">Espaço otimizado de área privativa e total.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="spec-card reveal-item" style="transition-delay: 100ms;">
+                        <span class="material-symbols-outlined spec-icon">bed</span>
+                        <div class="spec-details">
+                            <h3 class="title-md spec-card-title">3 Dormitórios</h3>
+                            <p class="body-md spec-card-desc">Incluindo 1 Suíte Master impecável com Closet.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="spec-card reveal-item" style="transition-delay: 200ms;">
+                        <span class="material-symbols-outlined spec-icon">outdoor_grill</span>
+                        <div class="spec-details">
+                            <h3 class="title-md spec-card-title">Varanda Gourmet</h3>
+                            <p class="body-md spec-card-desc">Integração perfeita com churrasqueira.</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="spec-card reveal-item" style="transition-delay: 300ms;">
+                        <span class="material-symbols-outlined spec-icon">directions_car</span>
+                        <div class="spec-details">
+                            <h3 class="title-md spec-card-title">2 Vagas Cobertas</h3>
+                            <p class="body-md spec-card-desc">Segurança e exclusividade no coração da cidade.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Lazer nas Alturas -->
+        <section class="section-lazer" id="lazer" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLvLBLA38PCQ_giMH573VQhZrDMtDxAY_NM5pN17RBFtiPTMl1tMEgpVtR9GchNxVjiGkKdY33MuMjdrKxpyB0RTViLgJKbO4Dp4Ysc9t1fWIHjzBg1cGXNkB8U8ZylhGCbOFpxFnosyx360yT7Idj509cXasw8AVh5SyZgcpTlCSTsv36TbJkkifwAOuOygOFXyng9hmG2EIDQkYWLF8NXPjXWlae9t-e_HdO4dg6PJmKTcDv8rcUpkk0n4');" data-parallax-speed="0.4">
+            <div class="lazer-overlay"></div>
+            <div class="lazer-gradient"></div>
+            <div class="container lazer-content reveal-item">
+                <div class="lazer-glow-container">
+                    <div class="lazer-glow"></div>
+                    <h2 class="display-lg lazer-title">Lazer e Contemplação Reinterpretados.</h2>
+                </div>
+                <p class="lazer-desc">Um condomínio exclusivo de 12 pavimentos apresentando um requintado Salão de Festas na Cobertura.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Call to Action -->
+        <section class="section-contato" id="contato">
+            <div class="container">
+                <div class="contact-box reveal-item">
+                    <!-- Decorative Golden Corners -->
+                    <div class="corner-border corner-top-left"></div>
+                    <div class="corner-border corner-top-right"></div>
+                    <div class="corner-border corner-bottom-left"></div>
+                    <div class="corner-border corner-bottom-right"></div>
+                    
+                    <div class="contact-header">
+                        <h2 class="headline-lg">Acesso Reservado</h2>
+                        <p class="body-md">Cadastre-se para receber informações exclusivas sobre o lançamento.</p>
+                    </div>
+                    
+                    <form class="contact-form" id="cadastro-form">
+                        <div class="input-group">
+                            <input type="email" id="email" class="form-input" placeholder="Seu melhor e-mail" required>
+                        </div>
+                        <button type="submit" class="cta-button">
+                            <span>Agendar Visita Exclusiva</span>
+                            <span class="material-symbols-outlined btn-icon">arrow_forward</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">CENTRAL PARK RESIDENCE</div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Política de Privacidade</a>
+                <a href="#" class="footer-link">Termos de Uso</a>
+                <a href="#" class="footer-link">Investidores</a>
+            </div>
+            <p class="footer-copy">© 2024 CENTRAL PARK RESIDENCE. TODOS OS DIREITOS RESERVADOS.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
