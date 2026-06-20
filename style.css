@@ -18,7 +18,7 @@
     --color-outline-variant: #4d4635;
     
     /* Typography */
-    --font-heading: 'Playfair Display', 'Montserrat', serif;
+    --font-heading: 'Montserrat', 'Inter', sans-serif;
     --font-body: 'Inter', 'Montserrat', sans-serif;
     
     /* Border Radius */
@@ -54,11 +54,46 @@ html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 body {
     overflow-x: hidden;
     line-height: 1.6;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- LENIS SMOOTH SCROLL INTEGRATION --- */
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
 }
 
 img {
@@ -179,16 +214,53 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: var(--spacing-md);
-    padding-bottom: var(--spacing-md);
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 300;
     letter-spacing: 0.1em;
     color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Monograma NM: visível no mobile, oculto no desktop */
+.logo-img--monogram {
+    height: 70px;
+    width: auto;
+    display: block;
+    filter: brightness(0) saturate(100%) invert(80%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(105%);
+    transition: opacity 0.3s ease;
+}
+
+/* Wordmark NIVIUM: oculto no mobile, visível no desktop */
+.logo-img--wordmark {
+    height: 100px;
+    width: auto;
+    display: block;
+    filter: brightness(0) saturate(100%) invert(80%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(105%);
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .logo-img--wordmark {
+        display: none;
+    }
+    .logo-img--monogram {
+        height: 44px;
+    }
+}
+
+@media (min-width: 769px) {
+    .logo-img--monogram {
+        display: none;
+    }
 }
 
 .nav-links {
@@ -334,9 +406,19 @@ a {
     align-items: center;
     text-align: center;
     overflow: hidden;
+    padding-top: 80px;
+    background-color: var(--color-bg);
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: 0;
+    transform-origin: bottom;
+    will-change: transform;
 }
 
 .hero-overlay {
@@ -357,20 +439,26 @@ a {
 
 .hero-title {
     margin-bottom: var(--spacing-lg);
+    margin-right: -0.15em; /* Compensates for letter-spacing to center it perfectly horizontally */
     color: var(--color-primary);
 }
 
 .hero-subtitle {
-    margin-bottom: var(--section-gap);
+    margin-bottom: 0;
     color: var(--color-on-surface-variant);
     max-width: 600px;
 }
 
 .hero-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 1px;
-    height: 100px;
+    height: 80px;
     background: linear-gradient(to bottom, var(--color-primary-container), transparent);
     animation: pulse 2s infinite ease-in-out;
+    z-index: 10;
 }
 
 /* --- 6. SECTION: O CONCEITO --- */
@@ -501,6 +589,7 @@ a {
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
                 box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
                 border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, box-shadow;
 }
 
 .spec-card:hover {
@@ -539,18 +628,27 @@ a {
 .section-lazer {
     position: relative;
     padding: var(--section-gap) 0;
-    min-height: 80vh;
+    height: 80vh;
     display: flex;
     align-items: center;
+    overflow: hidden;
+}
+
+.lazer-bg {
+    position: absolute;
+    inset: 0;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: 0;
+    transform-origin: center;
+    will-change: transform;
 }
 
 .lazer-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(19, 19, 19, 0.85);
+    background-color: rgba(19, 19, 19, 0.65);
     z-index: 1;
 }
 
@@ -576,10 +674,11 @@ a {
 
 .lazer-glow {
     position: absolute;
-    inset: 0;
-    background-color: rgba(212, 175, 55, 0.15);
-    filter: blur(50px);
+    inset: -30px;
+    background-color: rgba(212, 175, 55, 0.25);
+    filter: blur(60px);
     border-radius: var(--radius-full);
+    pointer-events: none;
 }
 
 .lazer-title {
@@ -781,12 +880,21 @@ a {
 }
 
 .footer-logo {
-    font-family: var(--font-heading);
-    font-size: 2.25rem;
-    font-weight: 300;
-    color: var(--color-primary);
     text-align: center;
-    letter-spacing: 0.1em;
+}
+
+.footer-logo-img {
+    height: 160px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    filter: brightness(0) saturate(100%) invert(80%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(105%);
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.footer-logo-img:hover {
+    opacity: 1;
 }
 
 .footer-links {
@@ -825,29 +933,121 @@ a {
 }
 
 /* --- 11. MOTION & INTERACTION (Scroll Reveal) --- */
+/* Base reveal classes are fully visible by default */
+.reveal-item,
+.reveal-text,
+.reveal-image {
+    opacity: 1;
+    transform: none;
+    -webkit-clip-path: none;
+    clip-path: none;
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                -webkit-clip-path 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                clip-path 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-image img {
+    transform: scale(1);
+    transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* If JS animations are supported, apply initial hidden states */
 @media (prefers-reduced-motion: no-preference) {
-    .reveal-item {
+    body.js-reveal .reveal-item {
         opacity: 0;
         transform: translateY(30px);
-        transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                    transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .reveal-item.is-visible {
+    body.js-reveal .reveal-item.is-visible {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    /* Clip-path Typography Reveal */
+    body.js-reveal .reveal-text {
+        opacity: 0;
+        -webkit-clip-path: inset(0% 0% 100% 0%);
+        clip-path: inset(0% 0% 100% 0%);
+        transform: translateY(30px);
+    }
+
+    body.js-reveal .reveal-text.is-visible {
+        opacity: 1;
+        -webkit-clip-path: inset(0% 0% 0% 0%);
+        clip-path: inset(0% 0% 0% 0%);
+        transform: translateY(0);
+    }
+
+    /* Vertical Image Mask Reveal */
+    body.js-reveal .reveal-image {
+        opacity: 0;
+        -webkit-clip-path: inset(100% 0% 0% 0%);
+        clip-path: inset(100% 0% 0% 0%); /* starts fully cropped from bottom up */
+    }
+
+    body.js-reveal .reveal-image.is-visible {
+        opacity: 1;
+        -webkit-clip-path: inset(0% 0% 0% 0%);
+        clip-path: inset(0% 0% 0% 0%); /* expands upwards */
+    }
+
+    body.js-reveal .reveal-image img {
+        transform: scale(1.15) translateY(30px);
+    }
+
+    body.js-reveal .reveal-image.is-visible img {
+        transform: scale(1) translateY(0);
+    }
+
+    /* Narrative Slide Child Staggers */
+    body.js-reveal .narrative-slide .text-gold,
+    body.js-reveal .narrative-slide h2,
+    body.js-reveal .narrative-slide p {
+        opacity: 0;
+        -webkit-clip-path: inset(0% 0% 100% 0%);
+        clip-path: inset(0% 0% 100% 0%);
+        transform: translateY(30px);
+        transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                    -webkit-clip-path 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                    clip-path 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                    transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    body.js-reveal .narrative-slide.active .text-gold {
+        opacity: 1;
+        -webkit-clip-path: inset(0% 0% 0% 0%);
+        clip-path: inset(0% 0% 0% 0%);
+        transform: translateY(0);
+        transition-delay: 0s;
+    }
+
+    body.js-reveal .narrative-slide.active h2 {
+        opacity: 1;
+        -webkit-clip-path: inset(0% 0% 0% 0%);
+        clip-path: inset(0% 0% 0% 0%);
+        transform: translateY(0);
+        transition-delay: 0.15s;
+    }
+
+    body.js-reveal .narrative-slide.active p {
+        opacity: 1;
+        -webkit-clip-path: inset(0% 0% 0% 0%);
+        clip-path: inset(0% 0% 0% 0%);
+        transform: translateY(0);
+        transition-delay: 0.3s;
     }
 
     .hero-entrance {
         opacity: 0;
         transform: translateY(20px);
-        animation: fadeInUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        animation: fadeInUp 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
 
     .hero-entrance-delayed {
         opacity: 0;
         transform: translateY(20px);
-        animation: fadeInUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+        animation: fadeInUp 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards;
     }
 
     @keyframes fadeInUp {
@@ -879,4 +1079,420 @@ a {
     50% {
         opacity: 1;
     }
+}
+
+/* --- 11. SCROLL PROGRESS INDICATOR --- */
+.scroll-progress-container {
+    position: fixed;
+    top: 0;
+    right: 8px;
+    width: 3px;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.scroll-progress-bar {
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-container));
+    box-shadow: 0 0 10px rgba(242, 250, 80, 0.6);
+    transition: height 0.1s ease-out;
+}
+
+/* --- 12. HERO REVEAL FROM BLUR --- */
+.hero-title-reveal {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.95) translateY(10px);
+    animation: revealFromBlur 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealFromBlur {
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* --- 13. STICKY NARRATIVE SECTION --- */
+.section-narrative {
+    position: relative;
+    height: 500vh;
+    background-color: var(--color-bg);
+}
+
+.narrative-sticky-wrapper {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.narrative-bg {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+}
+
+.narrative-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(19, 19, 19, 0.88);
+    z-index: 2;
+}
+
+.narrative-container {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.narrative-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(10px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.narrative-slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    pointer-events: auto;
+}
+
+.narrative-content {
+    text-align: center;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.text-gold {
+    color: var(--color-primary) !important;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* --- 14. BLUEPRINT OF EXCELLENCE (FLOOR PLAN) --- */
+.section-blueprint {
+    padding: var(--section-gap) 0;
+    background: linear-gradient(180deg, var(--color-bg) 0%, #121212 100%);
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(242, 202, 80, 0.05);
+    border-bottom: 1px solid rgba(242, 202, 80, 0.05);
+}
+
+.blueprint-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--gutter);
+    align-items: center;
+}
+
+@media (max-width: 992px) {
+    .blueprint-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+}
+
+.blueprint-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.text-muted {
+    color: var(--color-on-surface-variant);
+}
+
+.blueprint-specs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.blueprint-spec-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    will-change: transform;
+}
+
+.blueprint-spec-item:hover {
+    transform: translateX(5px);
+    border-color: rgba(242, 202, 80, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.blueprint-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blueprint-card-container {
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(242, 202, 80, 0.15);
+    padding: var(--spacing-md);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(242, 202, 80, 0.03);
+    transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.blueprint-card-container:hover {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(242, 202, 80, 0.15);
+    border-color: rgba(242, 202, 80, 0.3);
+}
+
+.blueprint-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.blueprint-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blueprint-image-container:hover .blueprint-img {
+    transform: scale(1.03);
+}
+
+.blueprint-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(19, 19, 19, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    gap: var(--spacing-sm);
+}
+
+.blueprint-image-container:hover .blueprint-overlay {
+    opacity: 1;
+}
+
+.expand-icon {
+    font-size: 3rem;
+    color: var(--color-primary);
+}
+
+/* --- 15. LIFESTYLE (FLOATING GRID) --- */
+.section-lifestyle {
+    padding: var(--section-gap) 0;
+    background-color: var(--color-surface);
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-two-columns-lifestyle {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--gutter);
+    align-items: center;
+}
+
+@media (max-width: 992px) {
+    .grid-two-columns-lifestyle {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+}
+
+.lifestyle-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    padding-right: 40px;
+}
+
+@media (max-width: 992px) {
+    .lifestyle-info {
+        padding-right: 0;
+    }
+}
+
+.lifestyle-images {
+    position: relative;
+    width: 100%;
+    min-height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 576px) {
+    .lifestyle-images {
+        min-height: 380px;
+    }
+}
+
+.lifestyle-img-wrapper {
+    position: absolute;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+
+.main-img-wrapper {
+    width: 72%;
+    left: 2%;
+    top: 5%;
+    z-index: 2;
+}
+
+.overlap-img-wrapper {
+    width: 48%;
+    right: 2%;
+    bottom: 5%;
+    z-index: 3;
+    border: 1px solid var(--color-primary);
+}
+
+.lifestyle-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lifestyle-img-wrapper:hover {
+    z-index: 5;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(242, 202, 80, 0.2);
+}
+
+.lifestyle-img-wrapper:hover .lifestyle-img {
+    transform: scale(1.05);
+}
+
+/* --- 16. LIGHTBOX MODAL --- */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(10, 10, 10, 0.96);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.lightbox.open {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    width: 90%;
+    max-width: 1100px;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(242, 202, 80, 0.2);
+    box-shadow: 0 0 50px rgba(242, 202, 80, 0.15);
+    transform: scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox.open .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #ffffff;
+    font-size: 3.5rem;
+    font-weight: 200;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    user-select: none;
+}
+
+.lightbox-close:hover {
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+/* --- 17. SCROLL SLIDE ANIMATIONS --- */
+.reveal-slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    filter: blur(10px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    filter: blur(10px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-slide-left.is-visible,
+.reveal-slide-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
 }
